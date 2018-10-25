@@ -16,12 +16,12 @@ class Hex
     7 => '7',
     8 => '8',
     9 => '9',
-    10 => 'A',
-    11 => 'B',
-    12 => 'C',
-    13 => 'D',
-    14 => 'E',
-    15 => 'F'
+    10 => 'a',
+    11 => 'b',
+    12 => 'c',
+    13 => 'd',
+    14 => 'e',
+    15 => 'f'
   }.freeze
 
   ALPHABET_BY_STR = ALPHABET_BY_INT.invert.freeze
