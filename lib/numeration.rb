@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+require_relative 'hex'
+require_relative 'b64'
+
 class Numeration
   SUPPORTED_RADIXES = (2..10).to_a + [16, 64]
 
