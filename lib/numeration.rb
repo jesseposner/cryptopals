@@ -18,18 +18,19 @@ class Numeration
       remainder = B64::ALPHABET_BY_INT[remainder] if radix == 64
 
       accumulator << remainder
-      int = int / radix
+      int /= radix
     end
 
     accumulator.reverse.join
   end
 
+  # TODO: move bit/byte converstion to Byte class
+  # TODO: this should be convert int to octets and return an array
+  # TODO: create zero padding helper method
   def self.convert_int_to_bits(int)
-    binary_str = self.convert_int_to_string(int: int, radix: 2)
+    binary_str = convert_int_to_string(int: int, radix: 2)
 
-    until binary_str.length == 8
-      binary_str = '0' + binary_str
-    end
+    binary_str.prepend('0') until binary_str.length == 8
 
     binary_str
   end
