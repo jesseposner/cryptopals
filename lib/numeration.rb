@@ -6,7 +6,7 @@ require_relative 'b64'
 class Numeration
   SUPPORTED_RADIXES = (2..10).to_a + [16, 64]
 
-  def self.convert_int_to_string(int:, radix:)
+  def self.integer_to_string(int:, radix:)
     raise 'radix not supported' unless SUPPORTED_RADIXES.include?(radix)
     return '0' if int.zero?
 
@@ -35,7 +35,7 @@ class Numeration
     binary_str
   end
 
-  def self.convert_string_to_integer(string:, radix:)
+  def self.string_to_integer(string:, radix:)
     raise 'radix not supported' unless SUPPORTED_RADIXES.include?(radix)
 
     accumulator = 0

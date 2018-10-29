@@ -81,9 +81,9 @@ class B64
       .map(&:join)
       .map do |sextet|
         int = Numeration
-          .convert_string_to_integer(string: sextet, radix: 2)
+          .string_to_integer(string: sextet, radix: 2)
         Numeration
-          .convert_int_to_string(int: int, radix: 64)
+          .integer_to_string(int: int, radix: 64)
        end
       .join
   end

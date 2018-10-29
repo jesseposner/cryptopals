@@ -12,9 +12,9 @@ class XOR
     xor_bits = bits1.map.with_index { |bit, idx| bit.to_i ^ bits2[idx].to_i }
     xor_bits.each_slice(8).map do |octet|
       int = Numeration
-        .convert_string_to_integer(string: octet.join, radix: 2)
+        .string_to_integer(string: octet.join, radix: 2)
       Numeration
-        .convert_int_to_string(int: int, radix: 16)
+        .integer_to_string(int: int, radix: 16)
     end
     .join
   end

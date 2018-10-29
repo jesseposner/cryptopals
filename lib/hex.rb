@@ -46,7 +46,7 @@ class Hex
       .each_slice(2)
       .map do |octet|
         Numeration
-          .convert_string_to_integer(string: octet.join, 
+          .string_to_integer(string: octet.join,
                                      radix: 16)
        end
   end
@@ -55,7 +55,7 @@ class Hex
     @_decode_to_bits ||= decode_to_bytes
       .map do |byte|
         binary_str = Numeration
-          .convert_int_to_string(int: byte, 
+          .integer_to_string(int: octet,
                                  radix: 2)
 
         until binary_str.length == 8
