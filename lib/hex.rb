@@ -8,40 +8,29 @@ class Hex
   def initialize(str)
     @str = str
 
-    decode_to_bytes
-    decode_to_ascii
-    decode_to_bits
+    bytes
+    ascii
+    bits
   end
 
-  def decode_to_ascii
-    @_decode_to_ascii ||= decode_to_bytes
-      .map(&:chr)
-      .join
+  def ascii
+    @_ascii ||= bytes
+                .map(&:chr)
+                .join
   end
 
-  def decode_to_bytes
-    @_decode_to_bytes ||= @str
-      .chars
-      .each_slice(2)
-      .map do |octet|
-        Numeration
-          .string_to_integer(string: octet.join,
-                                     radix: 16)
-       end
+  def bytes
+    @_bytes ||= @str
+                .chars
+                .each_slice(2)
+                .map do |octet|
+                  Numeration
+                    .string_to_integer(string: octet.join,
+                                       radix: 16)
+                end
   end
 
-  def decode_to_bits
-    @_decode_to_bits ||= decode_to_bytes
-      .map do |octet|
-        binary_str = Numeration
-          .integer_to_string(int: octet,
-                                 radix: 2)
-
-        until binary_str.length == 8
-          binary_str = '0' + binary_str
-        end
-
-        binary_str
-      end
+  def bits
+    @_bits ||= bytes.map { |byte| Byte::Integer.new(byte).bits }
   end
 end
