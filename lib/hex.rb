@@ -36,8 +36,8 @@ class Hex
 
   def decode_to_ascii
     @_decode_to_ascii ||= decode_to_bytes
-                          .map(&:chr)
-                          .join
+      .map(&:chr)
+      .join
   end
 
   def decode_to_bytes
