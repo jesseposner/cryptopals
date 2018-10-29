@@ -10,6 +10,7 @@ class Hex
 
     bytes
     ascii
+    octets
     bits
   end
 
@@ -30,7 +31,11 @@ class Hex
                 end
   end
 
+  def octets
+    @_octets ||= bytes.map { |byte| Byte::Integer.new(byte).bits }
+  end
+
   def bits
-    @_bits ||= bytes.map { |byte| Byte::Integer.new(byte).bits }
+    @_bits ||= octets.join
   end
 end
