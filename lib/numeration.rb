@@ -3,10 +3,7 @@
 require_relative 'alphabet'
 
 class Numeration
-  SUPPORTED_RADIXES = (2..10).to_a + [16, 64]
-
   def self.integer_to_string(int:, radix:)
-    raise 'radix not supported' unless SUPPORTED_RADIXES.include?(radix)
     return '0' if int.zero?
 
     accumulator = []
@@ -25,8 +22,6 @@ class Numeration
   end
 
   def self.string_to_integer(string:, radix:)
-    raise 'radix not supported' unless SUPPORTED_RADIXES.include?(radix)
-
     accumulator = 0
     string
       .reverse
