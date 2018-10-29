@@ -53,7 +53,7 @@ class Hex
 
   def decode_to_bits
     @_decode_to_bits ||= decode_to_bytes
-      .map do |byte|
+      .map do |octet|
         binary_str = Numeration
           .integer_to_string(int: octet,
                                  radix: 2)
