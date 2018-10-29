@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'hex'
-require_relative 'b64'
+require_relative 'alphabet'
 
 class Numeration
   SUPPORTED_RADIXES = (2..10).to_a + [16, 64]
@@ -14,10 +13,11 @@ class Numeration
 
     until int.zero?
       remainder = int % radix
-      remainder = Hex::ALPHABET_BY_INT[remainder] if radix == 16
-      remainder = B64::ALPHABET_BY_INT[remainder] if radix == 64
+      alphabet  = Alphabet.new(radix)
+      symbol    = alphabet.symbol(remainder)
 
-      accumulator << remainder
+
+      accumulator << symbol
       int /= radix
     end
 
@@ -32,9 +32,10 @@ class Numeration
       .reverse
       .each_char
       .with_index do |digit, idx|
-        digit = Hex::ALPHABET_BY_STR[digit] if radix == 16
-        digit = B64::ALPHABET_BY_STR[digit] if radix == 64
-        accumulator += exponentiation(base: radix, exponent: idx) * digit.to_i
+        alphabet = Alphabet.new(radix)
+        int      = alphabet.integer(digit)
+
+        accumulator += exponentiation(base: radix, exponent: idx) * int
       end
 
     accumulator
