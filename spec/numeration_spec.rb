@@ -29,6 +29,21 @@ RSpec.describe Numeration do
     end
   end
 
+  describe '::string_to_integer' do
+    it 'should calculate the correct result' do
+      described_class::SUPPORTED_RADIXES.each do |radix|
+        next if radix == 64
+
+        (0..1000).each do |int|
+          expect(
+            described_class.string_to_integer(string: int.to_s(radix),
+                                              radix: radix)
+          ).to eq(int.to_s(radix).to_i(radix))
+        end
+      end
+    end
+  end
+
   describe '::exponentiation' do
     it 'should calculate the correct result' do
       (0..1000).each do |base|
