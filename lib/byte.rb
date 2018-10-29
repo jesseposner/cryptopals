@@ -1,27 +1,61 @@
+# frozen_string_literal: true
+
 require_relative 'numeration'
 
 class Byte
-  # TODO: move bit/byte converstion to Byte class
-  # TODO: this should be convert int to octets and return an array
-  # TODO: create zero padding helper method
-  def self.convert_int_to_bits(int)
-    binary_str = Numeration.integer_to_string(int: int, radix: 2)
+  class Integer
+    attr_reader :int
 
-    binary_str.prepend('0') until binary_str.length == 8
+    def initialize(int)
+      @int = int
 
-    binary_str
+      octets
+      bits
+    end
+
+    def octets
+      return @_octets if @_octets
+
+      binary_str = Numeration
+                   .integer_to_string(int: @int, radix: 2)
+
+      @_octets = binary_str
+                 .chars
+                 .reverse
+                 .each_slice(8)
+                 .map { |octet| zero_pad_octet(octet.reverse).join }
+                 .reverse
+    end
+
+    def bits
+      @_bits ||= octets.join
+    end
+
+    private
+
+    def zero_pad_octet(octet)
+      octet.prepend('0') until octet.length == 8
+
+      octet
+    end
   end
 
-  def convert_int_to_octets(int)
-  end
+  class String
+    attr_reader :str
 
-  # TODO: need to clarify return types
-  def self.convert_str_to_bytes(str)
-    str.each_char.map { |chr| chr.ord }
-  end
+    def initialize(str)
+      @str = str
 
-  def self.convert_str_to_bits(str)
-    self.convert_str_to_bytes(str)
-      .map { |byte| self.convert_int_to_bits(byte) }
+      bytes
+      octets
+    end
+
+    def bytes
+      @_bytes ||= @str.each_char.map(&:ord)
+    end
+
+    def octets
+      @_octets ||= bytes.map { |byte| Integer.new(byte).bits }
+    end
   end
 end
