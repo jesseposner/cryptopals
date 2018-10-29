@@ -2,6 +2,7 @@
 
 require_relative 'numeration'
 require_relative 'hex'
+require_relative 'byte'
 
 class XOR
   def self.fixed(hex_str1, hex_str2)
@@ -26,8 +27,8 @@ class XOR
   end
 
   def self.int_xor(int1, int2)
-    binary1 = Numeration.convert_int_to_bits(int: int1, radix: 2)
-    binary2 = Numeration.convert_int_to_bits(int: int2, radix: 2)
+    binary1 = Byte.convert_int_to_bits(int: int1, radix: 2)
+    binary2 = Byte.convert_int_to_bits(int: int2, radix: 2)
     binary1.map.with_index { |bit, idx| self.bit_xor(bit, binary2.chars[idx]) }
   end
 
