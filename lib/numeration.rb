@@ -32,8 +32,8 @@ class Numeration
       .reverse
       .each_char
       .with_index do |digit, idx|
-        digit = Hex::ALPHABET_BY_STR[digit.upcase] if radix == 16
-        digit = B64::ALPHABET_BY_STR[digit.upcase] if radix == 64
+        digit = Hex::ALPHABET_BY_STR[digit] if radix == 16
+        digit = B64::ALPHABET_BY_STR[digit] if radix == 64
         accumulator += exponentiation(base: radix, exponent: idx) * digit.to_i
       end
 
