@@ -5,7 +5,7 @@ require 'numeration'
 RSpec.describe Numeration do
   describe '::integer_to_string' do
     it 'should calculate the correct result' do
-      described_class::SUPPORTED_RADIXES.each do |radix|
+      Alphabet::SUPPORTED_RADIXES.each do |radix|
         next if radix == 64
 
         (0..1000).each do |int|
@@ -22,7 +22,7 @@ RSpec.describe Numeration do
         expect do
           described_class.integer_to_string(
             int: 1,
-            radix: described_class::SUPPORTED_RADIXES.max + 1
+            radix: Alphabet::SUPPORTED_RADIXES.max + 1
           )
         end.to raise_error(StandardError, 'radix not supported')
       end
@@ -31,7 +31,7 @@ RSpec.describe Numeration do
 
   describe '::string_to_integer' do
     it 'should calculate the correct result' do
-      described_class::SUPPORTED_RADIXES.each do |radix|
+      Alphabet::SUPPORTED_RADIXES.each do |radix|
         next if radix == 64
 
         (0..1000).each do |int|
