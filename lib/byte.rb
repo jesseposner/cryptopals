@@ -57,5 +57,9 @@ class Byte
     def octets
       @_octets ||= bytes.map { |byte| Integer.new(byte).bits }
     end
+
+    def bits
+      @_bits ||= octets.join
+    end
   end
 end
