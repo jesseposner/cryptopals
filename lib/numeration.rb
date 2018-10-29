@@ -34,13 +34,13 @@ class Numeration
       .with_index do |digit, idx|
         digit = Hex::ALPHABET_BY_STR[digit.upcase] if radix == 16
         digit = B64::ALPHABET_BY_STR[digit.upcase] if radix == 64
-        accumulator += exponentiation(radix, idx) * digit.to_i
+        accumulator += exponentiation(base: radix, exponent: idx) * digit.to_i
       end
 
     accumulator
   end
 
-  def self.exponentiation(base, exponent)
+  def self.exponentiation(base:, exponent:)
     return 1 if exponent.zero?
 
     accumulator = base
