@@ -8,7 +8,7 @@ RSpec.describe Numeration do
       described_class::SUPPORTED_RADIXES.each do |radix|
         next if radix == 64
 
-        (0..100).each do |int|
+        (0..1000).each do |int|
           expect(
             described_class.integer_to_string(int: int,
                                               radix: radix)
@@ -31,8 +31,8 @@ RSpec.describe Numeration do
 
   describe '::exponentiation' do
     it 'should calculate the correct result' do
-      (0..100).each do |base|
-        (100..0).each do |exponent|
+      (0..1000).each do |base|
+        (1000..0).each do |exponent|
           expect(
             described_class.exponentiation(base, exponent)
           ).to eq(base**exponent)
