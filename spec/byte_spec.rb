@@ -37,6 +37,11 @@ RSpec.describe Byte do
       it 'should calculate the correct result' do
         expect(string_instance.octets)
           .to eq(%w[01001000 01100101 01101100 01101100 01101111 00100000 01010111 01101111 01110010 01101100 01100100 00100001])
+
+    describe '#bits' do
+      it 'should calculate the correct result' do
+        expect(string_instance.bits)
+          .to eq('010010000110010101101100011011000110111100100000010101110110111101110010011011000110010000100001')
       end
     end
   end
