@@ -5,35 +5,28 @@ require_relative 'hex'
 require_relative 'byte'
 
 class XOR
-  def self.fixed(hex_str1, hex_str2)
-    hex1 = Hex.new(hex_str1)
-    bits1 = hex1.decode_to_bits.join.chars
-    hex2 = Hex.new(hex_str2)
-    bits2 = hex2.decode_to_bits.join.chars
-    xor_bits = bits1.map.with_index { |bit, idx| bit.to_i ^ bits2[idx].to_i }
-    xor_bits.each_slice(8).map do |octet|
-      int = Numeration
-        .string_to_integer(string: octet.join, radix: 2)
-      Numeration
-        .integer_to_string(int: int, radix: 16)
+  def self.int(int1, int2)
+    bits1          = Byte::Integer.new(int1).bits
+    bits2          = Byte::Integer.new(int2).bits
+    longest_length = [bits1, bits2].map(&:length).max
+    padded_bits1   = Byte.zero_pad(bits1, longest_length)
+    padded_bits2   = Byte.zero_pad(bits2, longest_length)
+    xor_bits       = padded_bits1
+                     .chars
+                     .map
+                     .with_index do |bit1, idx|
+                       bit(bit1.to_i, padded_bits2[idx].to_i)
+                     end
+                     .join
+
+    Numeration.string_to_integer(string: xor_bits,
+                                 radix: 2)
+  end
+
+  def self.bit(bit1, bit2)
+    unless ([bit1, bit2] - [1, 0]).empty?
+      raise 'Arguments must be bits (i.e. 1 or 0)'
     end
-    .join
-  end
-
-  def self.single(str:, chr_int:)
-    hex = Hex.new(str.upcase)
-    hex_bytes = hex.decode_to_bytes
-    hex_bytes.map { |b| self.int_xor(b, chr_int).chr }.join
-  end
-
-  def self.int_xor(int1, int2)
-    binary1 = Byte.convert_int_to_bits(int: int1, radix: 2)
-    binary2 = Byte.convert_int_to_bits(int: int2, radix: 2)
-    binary1.map.with_index { |bit, idx| self.bit_xor(bit, binary2.chars[idx]) }
-  end
-
-  def self.bit_xor(bit1, bit2)
-    raise 'Arguments values must be 1 or 0' unless ([bit1, bit2] - [1,0]).empty?
 
     bit1 == bit2 ? 0 : 1
   end
