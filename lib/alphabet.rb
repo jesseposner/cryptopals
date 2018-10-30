@@ -2,6 +2,35 @@
 
 class Alphabet
   SUPPORTED_RADIXES = (2..10).to_a + [16, 64]
+  LETTER_FREQUENCY_SCORES     = {
+    A:   8,
+    B:   1,
+    C:   3,
+    D:   4,
+    E:   13,
+    F:   2,
+    G:   2,
+    H:   6,
+    I:   7,
+    J:   1,
+    K:   1,
+    L:   4,
+    M:   2,
+    N:   7,
+    O:   8,
+    P:   2,
+    Q:   1,
+    R:   6,
+    S:   6,
+    T:   9,
+    U:   3,
+    V:   1,
+    W:   2,
+    X:   1,
+    Y:   2,
+    Z:   1,
+    " ": 13
+  }.freeze
 
   attr_reader :radix
 
