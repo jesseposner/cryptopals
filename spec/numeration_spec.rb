@@ -46,10 +46,10 @@ RSpec.describe Numeration do
 
   describe '::exponentiation' do
     it 'should calculate the correct result' do
-      (0..1000).each do |base|
-        (1000..0).each do |exponent|
+      (0..100).each do |base|
+        (0..100).to_a.reverse.lazy.each do |exponent|
           expect(
-            described_class.exponentiation(base, exponent)
+            described_class.exponentiation(base: base, exponent: exponent)
           ).to eq(base**exponent)
         end
       end
