@@ -13,7 +13,6 @@ class Numeration
       alphabet  = Alphabet.new(radix)
       symbol    = alphabet.symbol(remainder)
 
-
       accumulator << symbol
       int /= radix
     end
