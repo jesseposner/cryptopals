@@ -3,6 +3,14 @@
 require_relative 'numeration'
 
 class Byte
+  def self.zero_pad(string, length)
+    padded_string = string.dup
+
+    padded_string.prepend('0') until padded_string.length == length
+
+    padded_string
+  end
+
   class Integer
     attr_reader :int
 
@@ -23,20 +31,12 @@ class Byte
                  .chars
                  .reverse
                  .each_slice(8)
-                 .map { |octet| zero_pad_octet(octet.reverse).join }
+                 .map { |octet| Byte.zero_pad(octet.reverse, 8).join }
                  .reverse
     end
 
     def bits
       @_bits ||= octets.join
-    end
-
-    private
-
-    def zero_pad_octet(octet)
-      octet.prepend('0') until octet.length == 8
-
-      octet
     end
   end
 
