@@ -24,5 +24,15 @@ RSpec.describe 'Set1' do
 
   describe 'Challenge 3' do
     let(:hex) { '1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736' }
+    let(:message) { "Cooking MC's like a pound of bacon" }
+
+    it 'should decrypt the message' do
+      xor_combinations = (0..255).map do |byte|
+        Set1.xor_combine_hex_and_single_char(hex, byte.chr)
+      end
+      best_scored_combination = Set1.best_score(xor_combinations)
+
+      expect(best_scored_combination).to eq(message)
+    end
   end
 end
