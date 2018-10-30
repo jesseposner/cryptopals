@@ -1,2 +1,2 @@
 # cryptopals
-Solutions to the Cyptopals Crypto Challenges
+Solutions to the Cryptopals Crypto Challenges
