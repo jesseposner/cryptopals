@@ -41,7 +41,7 @@ class Set1
   def self.score_string(str)
     str
       .chars
-      .map { |char| Alphabet::LETTER_FREQUENCY_SCORES[char.to_sym.upcase] || 0 }
+      .map { |char| Alphabet::Ascii::LETTER_FREQUENCY_SCORES[char.upcase] || 0 }
       .sum
   end
 end

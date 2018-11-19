@@ -10,7 +10,7 @@ class Numeration
 
     until int.zero?
       remainder = int % radix
-      alphabet  = Alphabet.new(radix)
+      alphabet  = Alphabet::Bases.new(radix)
       symbol    = alphabet.symbol(remainder)
 
       accumulator << symbol
@@ -26,7 +26,7 @@ class Numeration
       .reverse
       .each_char
       .with_index do |digit, idx|
-        alphabet = Alphabet.new(radix)
+        alphabet = Alphabet::Bases.new(radix)
         int      = alphabet.integer(digit)
 
         accumulator += exponentiation(base: radix, exponent: idx) * int
