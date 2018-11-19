@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'xor'
+require 'logic/xor'
 
 RSpec.describe XOR do
   describe '::int' do

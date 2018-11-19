@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'set1'
+require 'sets/set1'
 
 RSpec.describe 'Set1' do
   describe 'Challenge 1' do

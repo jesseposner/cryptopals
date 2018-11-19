@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'numeration'
+require_relative '../math/numeration'
 require_relative 'byte'
 
 class B64

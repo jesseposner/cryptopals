@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'alphabet'
+require_relative '../encodings/alphabet'
 
 class Numeration
   def self.integer_to_string(int:, radix:)

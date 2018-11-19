@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Alphabet
-  SUPPORTED_RADIXES = (2..10).to_a + [16, 64]
-  LETTER_FREQUENCY_SCORES     = {
+  SUPPORTED_RADIXES       = (2..10).to_a + [16, 64]
+  LETTER_FREQUENCY_SCORES = {
     A:   8,
     B:   1,
     C:   3,

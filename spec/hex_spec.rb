@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'hex'
+require 'encodings/hex'
 
 RSpec.describe Hex do
   let(:hex_str) { '49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d' }

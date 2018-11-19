@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'numeration'
+require 'math/numeration'
 
 RSpec.describe Numeration do
   describe '::integer_to_string' do

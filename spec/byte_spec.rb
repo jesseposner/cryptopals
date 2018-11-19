@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'byte'
+require 'encodings/byte'
 
 RSpec.describe Byte do
   describe '::Integer' do

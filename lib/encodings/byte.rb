@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'numeration'
+require_relative '../math/numeration'
 
 class Byte
   def self.zero_pad(string, length)
