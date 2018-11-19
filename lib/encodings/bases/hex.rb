@@ -2,17 +2,13 @@
 
 require_relative '../../math/numeration'
 require_relative '../ordinals/alphabet'
+require_relative '../ordinals/byte'
 
 class Hex
   attr_reader :str
 
   def initialize(str)
     @str = str
-
-    bytes
-    ascii
-    octets
-    bits
   end
 
   def ascii
