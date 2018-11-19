@@ -28,7 +28,7 @@ RSpec.describe 'Set1' do
 
     it 'should decrypt the message' do
       xor_combinations = (0..255).map do |byte|
-        Set1.xor_combine_hex_and_single_char(hex, byte.chr)
+        Set1.xor_combine_hex_and_single_char(hex, Alphabet::Ascii::CHARACTERS[byte])
       end
       best_scored_combination = Set1.best_score(xor_combinations)
 

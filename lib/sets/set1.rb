@@ -25,7 +25,7 @@ class Set1
 
   def self.xor_combine_hex_and_single_char(hex, char)
     hex_bytes = Hex.new(hex).bytes
-    char_byte = char.ord
+    char_byte = Alphabet::Ascii::ORDINAL_POSITIONS[char]
     xor_hex   = hex_bytes.map do |byte|
       xor_int = XOR.int(byte, char_byte)
       Numeration.integer_to_string(int: xor_int, radix: 16)

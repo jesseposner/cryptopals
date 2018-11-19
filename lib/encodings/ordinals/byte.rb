@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../../math/numeration'
+require_relative 'alphabet'
 
 class Byte
   def self.zero_pad(string, length)
@@ -16,9 +17,6 @@ class Byte
 
     def initialize(int)
       @int = int
-
-      octets
-      bits
     end
 
     def octets
@@ -45,13 +43,10 @@ class Byte
 
     def initialize(str)
       @str = str
-
-      bytes
-      octets
     end
 
     def bytes
-      @_bytes ||= @str.each_char.map(&:ord)
+      @_bytes ||= @str.each_char.map { |char| Alphabet::Ascii::ORDINAL_POSITIONS[char] }
     end
 
     def octets

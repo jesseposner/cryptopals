@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../../math/numeration'
+require_relative '../ordinals/alphabet'
 
 class Hex
   attr_reader :str
@@ -16,7 +17,7 @@ class Hex
 
   def ascii
     @_ascii ||= bytes
-                .map(&:chr)
+                .map { |byte| Alphabet::Ascii::CHARACTERS[byte] }
                 .join
   end
 
