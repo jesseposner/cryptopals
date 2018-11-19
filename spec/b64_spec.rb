@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'encodings/b64'
+require 'encodings/bases/b64'
 
 RSpec.describe B64 do
   describe '::Encode' do

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../math/numeration'
-require_relative '../encodings/hex'
-require_relative '../encodings/byte'
+require_relative '../encodings/ordinals/byte'
 
 class XOR
   def self.int(int1, int2)

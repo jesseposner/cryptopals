@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../math/numeration'
-require_relative 'byte'
+require_relative '../../math/numeration'
+require_relative '../ordinals/byte'
 
 class B64
   # TODO: add B64 padding

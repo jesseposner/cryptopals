@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative '../encodings/hex'
-require_relative '../encodings/b64'
+require_relative '../encodings/bases/hex'
+require_relative '../encodings/bases/b64'
 require_relative '../logic/xor'
 require_relative '../math/numeration'
-require_relative '../encodings/alphabet'
+require_relative '../encodings/ordinals/alphabet'
 
 class Set1
   def self.hex_string_to_base64(hex)
