@@ -10,10 +10,13 @@ int main(int argc, char *argv[])
   unsigned char *out;
   char *hex;
   size_t len, i;
+
   hex = argv[1];
   len = strlen(hex);
-	if (len % 2 != 0)
-		return 0;
+	if (len % 2 != 0) {
+	  fprintf(stderr, "string length is not even: %ld", len);
+    exit(EXIT_FAILURE);
+  }
 	len /= 2;
 
 	out = malloc(len);
