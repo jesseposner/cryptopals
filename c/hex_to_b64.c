@@ -23,8 +23,10 @@ int main(int argc, char *argv[])
 	memset(out, 'A', len);
 
   for (i = 0; i < len; ++i) {
-    printf("%d\n", hexbyte(hex[i*2], hex[i*2+1]));
+    out[i] = hexbyte(hex[i*2], hex[i*2+1]);
   }
+
+  printf("%s\n", out);
 }
 
 unsigned char hexbyte(const unsigned char d1, const unsigned char d2)
