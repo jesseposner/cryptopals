@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-unsigned char hexdigit(const unsigned char hex);
-unsigned char hexbyte(const unsigned char d1, const unsigned char d2);
+unsigned char decode_hex_char(const unsigned char hex);
+unsigned char decode_hex_2_tuple_be(const unsigned char h0, const unsigned char h1);
 
 int main(int argc, char *argv[]) {
     unsigned char *out;
@@ -22,31 +22,31 @@ int main(int argc, char *argv[]) {
     memset(out, 'A', len);
 
     for (i = 0; i < len; ++i) {
-        out[i] = hexbyte(hex[i*2], hex[i*2+1]);
+        out[i] = decode_hex_2_tuple_be(hex[i*2], hex[i*2+1]);
     }
 
     printf("%s\n", out);
 }
 
-unsigned char hexbyte(const unsigned char d1, const unsigned char d2) {
+unsigned char decode_hex_2_tuple_be(const unsigned char h0, const unsigned char h1) {
     unsigned char byte;
 
-    byte = (hexdigit(d1) << 4) + hexdigit(d2);
+    byte = (decode_hex_char(h0) << 4) + decode_hex_char(h1);
 
     return byte;
 }
 
-unsigned char hexdigit(const unsigned char hex) {
+unsigned char decode_hex_char(const unsigned char h) {
     unsigned char decoded_value;
 
-    if (hex >= '0' && hex <= '9') {
-        decoded_value = hex - '0';
-    } else if (hex >= 'a' && hex <= 'f') {
-        decoded_value = hex - 'a' + 10;
-    } else if (hex >= 'A' && hex <= 'F') {
-        decoded_value = hex - 'A' + 10;
+    if (h >= '0' && h <= '9') {
+        decoded_value = h - '0';
+    } else if (h >= 'a' && h <= 'f') {
+        decoded_value = h - 'a' + 10;
+    } else if (h >= 'A' && h <= 'F') {
+        decoded_value = h - 'A' + 10;
     } else {
-        fprintf(stderr, "non hex value: %d\n", hex);
+        fprintf(stderr, "non hex value: %d\n", h);
         exit(EXIT_FAILURE);
     }
 
