@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 char* decode_hex(const char*);
 unsigned char decode_hex_char(const unsigned char);
 char* encode_b64(const char*);
+void run_tests(void);
 
 
 int main(int argc, char *argv[]) {
+    run_tests();
     printf("%s\n", decode_hex(argv[1]));
     printf("%s\n", encode_b64(decode_hex(argv[1])));
 }
@@ -70,4 +73,17 @@ char* encode_b64(const char *bytes) {
     }
 
     return out;
+}
+
+void run_tests(void){
+    const char *hex_fixture, *bytes, *expected_bytes;
+
+    hex_fixture = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
+    bytes = decode_hex(hex_fixture);
+    expected_bytes = "I'm killing your brain like a poisonous mushroom";
+    assert(strcmp(expected_bytes, bytes) == 0);
+
+    bytes = encode_b64(bytes);
+    expected_bytes = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t";
+    assert(strcmp(expected_bytes, bytes) == 0);
 }
