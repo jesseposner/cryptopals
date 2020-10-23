@@ -26,10 +26,9 @@ char* decode_hex(const char *hex) {
     len /= 2;
 
     char *out = malloc(len);
-    memset(out, 'A', len);
 
     for (i = 0; i < len; ++i) {
-        out[i] = (decode_hex_char(hex[i*2]) << 4) + decode_hex_char(hex[i*2+1]);
+        out[i] = decode_hex_char(hex[i*2]) << 4 | decode_hex_char(hex[i*2+1]);
     }
 
     return out;
@@ -60,7 +59,6 @@ char* encode_b64(const char *bytes) {
     len = strlen(bytes);
     len /= 3;
     char *out = malloc(len*4);
-    memset(out, 'A', len);
 
     for (i = 0; i < len; ++i) {
         bits = bytes[i*3] << 8 | bytes[i*3+1];
