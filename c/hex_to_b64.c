@@ -2,16 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+char* decode_hex(const char*);
 unsigned char decode_hex_char(const unsigned char);
 
-unsigned char decode_hex_2_tuple_be(const unsigned char h0, const unsigned char h1);
 
 int main(int argc, char *argv[]) {
-    unsigned char *out;
-    char *hex;
+    printf("%s\n", decode_hex(argv[1]));
+}
+
+char* decode_hex(const char *hex) {
     size_t len, i;
 
-    hex = argv[1];
     len = strlen(hex);
     if (len % 2 != 0) {
         fprintf(stderr, "string length is not even: %ld", len);
@@ -19,22 +20,14 @@ int main(int argc, char *argv[]) {
     }
     len /= 2;
 
-    out = malloc(len);
+    char *out = malloc(len);
     memset(out, 'A', len);
 
     for (i = 0; i < len; ++i) {
-        out[i] = decode_hex_2_tuple_be(hex[i*2], hex[i*2+1]);
+        out[i] = (decode_hex_char(hex[i*2]) << 4) + decode_hex_char(hex[i*2+1]);
     }
 
-    printf("%s\n", out);
-}
-
-unsigned char decode_hex_2_tuple_be(const unsigned char h0, const unsigned char h1) {
-    unsigned char byte;
-
-    byte = (decode_hex_char(h0) << 4) + decode_hex_char(h1);
-
-    return byte;
+    return out;
 }
 
 unsigned char decode_hex_char(const unsigned char h) {
