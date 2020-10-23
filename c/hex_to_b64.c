@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-unsigned char decode_hex_char(const unsigned char hex);
+unsigned char decode_hex_char(const unsigned char);
+
 unsigned char decode_hex_2_tuple_be(const unsigned char h0, const unsigned char h1);
 
 int main(int argc, char *argv[]) {
