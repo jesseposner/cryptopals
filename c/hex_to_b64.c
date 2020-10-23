@@ -67,8 +67,8 @@ char* encode_b64(const char *bytes) {
         bits = bits << 8 | bytes[i*3+2];
 
         out[i*4] = b64_symbols[bits >> 18];
-        out[i*4+1] = b64_symbols[(bits >> 12) & 63];
-        out[i*4+2] = b64_symbols[(bits >> 6) & 63];
+        out[i*4+1] = b64_symbols[bits >> 12 & 63];
+        out[i*4+2] = b64_symbols[bits >> 6 & 63];
         out[i*4+3] = b64_symbols[bits & 63];
     }
 
