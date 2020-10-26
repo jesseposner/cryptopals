@@ -32,9 +32,9 @@ char* pad_hex(const char *hex) {
     if (len % 2 != 0) {
         len++; // increase length for padding byte
         out = malloc(len+1); // increase length for null byte
-        out[0] = '\0'; // set padding byte
+        out[0] = '0'; // set padding byte
 
-        strncpy(out + 1, hex, len-1);
+        strncpy(out+1, hex, len-1);
     } else {
         out = malloc(len+1); // increase length for null byte
 
