@@ -111,8 +111,7 @@ void run_tests(){
     assert(memcmp(expected_bytes, bytes, len) == 0);
 
     const char *b64_string = encode_b64(bytes, len);
+    free(bytes);
     expected_bytes = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t";
     assert(strcmp(expected_bytes, b64_string) == 0);
-
-    free(bytes);
 }
