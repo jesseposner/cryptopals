@@ -12,8 +12,17 @@ void run_tests(void);
 
 int main(int argc, char *argv[]) {
     run_tests();
-    printf("%s\n", decode_hex(argv[1]));
-    printf("%s\n", encode_b64(decode_hex(argv[1])));
+    /* allocates memory that must be freed */
+    const char *hex_string = pad_hex(argv[1]);
+    size_t len = strlen(hex_string) / 2;
+    uint8_t *bytes = malloc(len);
+    decode_hex(bytes, hex_string, len);
+    free((void*) hex_string);
+    /* allocates memory that must be freed */
+    const char *b64_string = encode_b64(bytes, len);
+    free(bytes);
+    printf("%s\n", b64_string);
+    free((void*) b64_string);
 }
 
 char* pad_hex(const char *hex) {
