@@ -93,15 +93,17 @@ char* encode_b64(const uint8_t *bytes, size_t inlen) {
     return out;
 }
 
-void run_tests(void){
-    const char *hex_fixture, *bytes, *expected_bytes;
+void run_tests(){
+    const char *hex_fixture = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
+    size_t len = strlen(hex_fixture) / 2;
+    uint8_t *bytes = malloc(len);
+    const char *expected_bytes = "I'm killing your brain like a poisonous mushroom";
+    decode_hex(bytes, hex_fixture, len);
+    assert(memcmp(expected_bytes, bytes, len) == 0);
 
-    hex_fixture = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
-    bytes = decode_hex(hex_fixture);
-    expected_bytes = "I'm killing your brain like a poisonous mushroom";
-    assert(strcmp(expected_bytes, bytes) == 0);
-
-    bytes = encode_b64(bytes);
+    const char *b64_string = encode_b64(bytes, len);
     expected_bytes = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t";
-    assert(strcmp(expected_bytes, bytes) == 0);
+    assert(strcmp(expected_bytes, b64_string) == 0);
+
+    free(bytes);
 }
