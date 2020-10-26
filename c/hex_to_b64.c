@@ -3,9 +3,10 @@
 #include <string.h>
 #include <assert.h>
 
-char* decode_hex(const char*);
-unsigned char decode_hex_char(const unsigned char);
 char* encode_b64(const char*);
+char* pad_hex(const char*);
+void decode_hex(uint8_t*, const char*, size_t);
+uint8_t decode_hex_char(const uint8_t);
 void run_tests(void);
 
 
@@ -15,27 +16,35 @@ int main(int argc, char *argv[]) {
     printf("%s\n", encode_b64(decode_hex(argv[1])));
 }
 
-char* decode_hex(const char *hex) {
-    size_t len, i;
+char* pad_hex(const char *hex) {
+    char *out;
 
-    len = strlen(hex);
+    size_t len = strlen(hex);
     if (len % 2 != 0) {
-        fprintf(stderr, "string length is not even: %ld", len);
-        exit(EXIT_FAILURE);
-    }
-    len /= 2;
+        len++; // increase length for padding byte
+        out = malloc(len+1); // increase length for null byte
+        out[0] = '\0'; // set padding byte
 
-    char *out = malloc(len);
+        strncpy(out + 1, hex, len-1);
+    } else {
+        out = malloc(len+1); // increase length for null byte
 
-    for (i = 0; i < len; ++i) {
-        out[i] = decode_hex_char(hex[i*2]) << 4 | decode_hex_char(hex[i*2+1]);
+        strncpy(out, hex, len);
     }
 
     return out;
 }
 
-unsigned char decode_hex_char(const unsigned char h) {
-    unsigned char decoded_value;
+void decode_hex(uint8_t *dest, const char *hex, size_t len) {
+    size_t i;
+
+    for (i = 0; i < len; ++i) {
+        dest[i] = decode_hex_char(hex[i*2]) << 4 | decode_hex_char(hex[i*2+1]);
+    }
+}
+
+uint8_t decode_hex_char(const uint8_t h) {
+    uint8_t decoded_value;
 
     if (h >= '0' && h <= '9') {
         decoded_value = h - '0';
