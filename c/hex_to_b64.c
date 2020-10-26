@@ -3,10 +3,10 @@
 #include <string.h>
 #include <assert.h>
 
-char* encode_b64(const char*);
 char* pad_hex(const char*);
 void decode_hex(uint8_t*, const char*, size_t);
 uint8_t decode_hex_char(const uint8_t);
+char* encode_b64(const uint8_t*, size_t);
 void run_tests(void);
 
 
@@ -60,23 +60,34 @@ uint8_t decode_hex_char(const uint8_t h) {
     return decoded_value;
 }
 
-char* encode_b64(const char *bytes) {
-    /* TODO: add padding */
-    size_t len, i, bits;
+char* encode_b64(const uint8_t *bytes, size_t inlen) {
+    size_t i, buf, remainder, b64_strlen;
+
     const char *b64_symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    remainder = inlen % 3;
+    inlen /= 3;
+    b64_strlen = inlen*4+(remainder+3 & 4);
+    char *out = malloc(b64_strlen+1);
+    out[b64_strlen] = '\0';
 
-    len = strlen(bytes);
-    len /= 3;
-    char *out = malloc(len*4);
+    for (i = 0; i < inlen; ++i) {
+        buf = bytes[i*3] << 8 | bytes[i*3+1];
+        buf = buf << 8 | bytes[i*3+2];
 
-    for (i = 0; i < len; ++i) {
-        bits = bytes[i*3] << 8 | bytes[i*3+1];
-        bits = bits << 8 | bytes[i*3+2];
+        out[i*4] = b64_symbols[buf >> 18];
+        out[i*4+1] = b64_symbols[buf >> 12 & 63];
+        out[i*4+2] = b64_symbols[buf >> 6 & 63];
+        out[i*4+3] = b64_symbols[buf & 63];
+    }
 
-        out[i*4] = b64_symbols[bits >> 18];
-        out[i*4+1] = b64_symbols[bits >> 12 & 63];
-        out[i*4+2] = b64_symbols[bits >> 6 & 63];
-        out[i*4+3] = b64_symbols[bits & 63];
+    if (remainder != 0) {
+        buf = bytes[inlen*3] << 8;
+        if (remainder == 2)
+            buf = buf | bytes[inlen*3+1];
+        out[inlen*4] = b64_symbols[buf >> 10];
+        out[inlen*4+1] = b64_symbols[buf >> 4 & 63];
+        out[inlen*4+2] = remainder == 1 ? '=' : b64_symbols[buf << 2 & 63];
+        out[inlen*4+3] = '=';
     }
 
     return out;
